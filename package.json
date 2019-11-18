@@ -1,5 +1,5 @@
 {
-  "name": "i18n-tool",
+  "name": "@tobemaster/i18n-tool",
   "version": "1.0.0",
   "description": "A small tool to assist international development",
   "bin": {
