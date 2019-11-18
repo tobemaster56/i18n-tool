@@ -1,15 +1,33 @@
 #! /usr/bin/env node
+const commander = require('commander')
+const updateNotifier = require('update-notifier')
+const pkg = require('../package.json')
+const i18n = require('../lib/index')
 
-const program = require('commander');
-const updateNotifier = require('update-notifier');
-const pkg = require('../package.json');
-const translator = require('../lib/init');
+updateNotifier({ pkg }).notify()
 
-updateNotifier({ pkg }).notify();
+commander
+  .version(pkg.version)
+  .description('A small tool to assist international development')
 
-program.version(pkg.version);
-
-program
+commander
   .command('init')
   .description('init i18n-tool config file')
-  .action();
+  .action(i18n.init)
+
+commander
+  .command('extract')
+  .description('extract chinese text from code')
+  .action(i18n.extract)
+
+commander
+  .command('translate <lang>')
+  .alias('fy')
+  .description('translate chinese text to specified language')
+  .action(i18n.translate)
+
+commander.parse(process.argv)
+
+if (process.argv.length === 2) {
+  commander.outputHelp()
+}
